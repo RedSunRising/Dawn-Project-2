@@ -68,6 +68,17 @@ function updateVideo(e) {
 	SOTUvideo.currentTime = SOTUvideo.duration * scrubBar.fractionScrubbed;
 }
 
+///////////////////////////////////////////////////////////////////////////////
+// Scroll bar moving with video
+
+// Set up the video so that the scroll bar is moved when the video time is updated
+document.getElementById('sotu-video').addEventListener("timeupdate", updateScrollBar);
+function updateScrollBar() {
+	var currentScrollBarPosition = dominantHashtagAt(SOTUvideo.currentTime);
+	recolorNation(dominantHashtag);
+	updateChart();
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 // Handling the scrolling transcript
 
