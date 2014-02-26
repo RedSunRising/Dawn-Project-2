@@ -40,12 +40,19 @@ function hashtagMousemove(e) {
 	updateScrubBar(e);
 	updateVideo(e);
 	updateTranscript(e);
+	scrubBarMouseover(e);
 }
 
 hashtagPlot.addEventListener('mouseout', playVideo, false);
 function playVideo(e) {
 	scrubBar.style.visibility = 'visible';
 	SOTUvideo.play();
+}
+
+hashtagPlot.addEventListener('mouseover', scrubBarMouseover, false);
+//Pauses the video on mouse over on scrub bar
+function scrubBarMouseover(e){
+	SOTUvideo.pause();
 }
 
 function updateScrubBar(e) {
