@@ -1,6 +1,7 @@
 var hashtagPlot = document.getElementById('hashtag-plot');
 var scrubBar = document.getElementById('scrub-bar');
 var SOTUvideo = document.getElementById('sotu-video');
+var scrollBar = document.getElementById('scroll-bar');
 var videoOffset = 306;
 
 // Pull out all the transcript timestamps for use throughout
@@ -73,21 +74,24 @@ function updateVideo(e) {
 
 // Set up the video so that the scroll bar is moved when the video time is updated
 document.getElementById('sotu-video').addEventListener("timeupdate", updateScrollBar);
-function updateScrollBar() {
-<<<<<<< HEAD
+function updateScrollBar(e) {
+
+	//shows scroll bar
+	scrollBar.style.visibility = 'visible';
+
 	// Gets current time of video
-	var currentTime = SOTUvideo.currentTime;
+	var startScrollBar = SOTUvideo.currentTime;
 
-=======
-	var currentScrollBarPosition = SOTUvideo.currentTime;
+	if (startScrollBar === 0) {
+		scrollBar.style.left = startScrollBar;
 
-	while ( currentScrollBarPosition < 3917 ){
-
-		var movingScrollBar = currentScrollBarPosition / 3;
-
-		scrubBar.style.left = movingScrollBar;
 	}
->>>>>>> FETCH_HEAD
+	else if (startScrollBar > 0 && startScrollBar < 3) {
+		scrollBar.style.left = startScrollBar % 3;
+	}
+	else if (startScrollBar > 3 && startScrollBar < 3918){
+		scrollBar.style.left = startScrollBar / 3;
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////
