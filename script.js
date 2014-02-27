@@ -1,7 +1,6 @@
 var hashtagPlot = document.getElementById('hashtag-plot');
 var scrubBar = document.getElementById('scrub-bar');
 var SOTUvideo = document.getElementById('sotu-video');
-var scrollBar = document.getElementById('scroll-bar');
 var videoOffset = 306;
 
 // Pull out all the transcript timestamps for use throughout
@@ -77,20 +76,21 @@ document.getElementById('sotu-video').addEventListener("timeupdate", updateScrol
 function updateScrollBar(e) {
 
 	//shows scroll bar
-	scrollBar.style.visibility = 'visible';
+	scrubBar.style.backgroundColor = 'blue';
+	scrubBar.style.visibility = 'visible';
 
 	// Gets current time of video
 	var startScrollBar = SOTUvideo.currentTime;
 
 	if (startScrollBar === 0) {
-		scrollBar.style.left = startScrollBar;
+		scrubBar.style.left = startScrollBar;
 
 	}
 	else if (startScrollBar > 0 && startScrollBar < 3) {
-		scrollBar.style.left = startScrollBar % 3;
+		scrubBar.style.left = startScrollBar % 3;
 	}
 	else if (startScrollBar > 3 && startScrollBar < 3918){
-		scrollBar.style.left = startScrollBar / 3;
+		scrubBar.style.left = startScrollBar / 3;
 	}
 }
 
