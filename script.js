@@ -45,7 +45,7 @@ function hashtagMousemove(e) {
 
 hashtagPlot.addEventListener('mouseout', playVideo, false);
 function playVideo(e) {
-	scrubBar.style.visibility = 'visible';
+	scrubBar.style.visibility = 'hidden';
 	SOTUvideo.play();
 }
 
@@ -74,9 +74,9 @@ function updateVideo(e) {
 // Set up the video so that the scroll bar is moved when the video time is updated
 document.getElementById('sotu-video').addEventListener("timeupdate", updateScrollBar);
 function updateScrollBar() {
-	var currentScrollBarPosition = dominantHashtagAt(SOTUvideo.currentTime);
-	recolorNation(dominantHashtag);
-	updateChart();
+	// Gets current time of video
+	var currentTime = SOTUvideo.currentTime;
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////
