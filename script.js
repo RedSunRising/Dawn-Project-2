@@ -44,9 +44,11 @@ function hashtagMousemove(e) {
 	scrubBarMouseover(e);
 }
 
-hashtagPlot.addEventListener('mouseout', playVideo, false);
-function playVideo(e) {
-	SOTUvideo.play();
+hashtagPlot.addEventListener('mouseout', moveFromScrub, false);
+// shows the scroll bar and plays the video on mouse out
+function moveFromScrub(e){
+	showScrollBar(e);
+	playVideo(e);
 }
 
 hashtagPlot.addEventListener('mouseover', scrubBarMouseover, false);
@@ -71,16 +73,22 @@ function updateVideo(e) {
 	SOTUvideo.currentTime = SOTUvideo.duration * scrubBar.fractionScrubbed;
 }
 
+function showScrollBar(e){
+		//shows scroll bar
+	scrubBar.style.backgroundColor = 'blue';
+	scrubBar.style.visibility = 'visible';
+}
+
+function playVideo(e) {
+	// function that plays the video
+	SOTUvideo.play();
+}
 ///////////////////////////////////////////////////////////////////////////////
 // Scroll bar moving with video
 
 // Set up the video so that the scroll bar is moved when the video time is updated
 document.getElementById('sotu-video').addEventListener("timeupdate", updateScrollBar);
 function updateScrollBar(e) {
-
-	//shows scroll bar
-	scrubBar.style.backgroundColor = 'blue';
-	scrubBar.style.visibility = 'visible';
 
 	// Gets current time of video
 	var startScrollBar = SOTUvideo.currentTime;
