@@ -19,7 +19,7 @@ function extractTimestamps() {
 // Initialize these for loading later, after window.onload
 var nation = null;
 var statePaths = null;
-var stateAbbreviations = null;
+var stateAbbreviations = [];
 
 // Hardcoded colors for each hashtag, grabbed from the twitter site with https://en.wikipedia.org/wiki/DigitalColor_Meter
 var hashtagColors = {
@@ -64,6 +64,7 @@ function updateScrubBar(e) {
 	scrubBar.style.left = e.clientX - position(hashtagPlot).x; // e.clientX is the mouse position
 
 	scrubBar.fractionScrubbed = parseInt(scrubBar.style.left, 10)/hashtagPlot.offsetWidth;
+	console.log(scrubBar.fractionScrubbed);
 }
 
 function updateVideo(e) {
@@ -84,16 +85,19 @@ function updateScrollBar(e) {
 	// Gets current time of video
 	var startScrollBar = SOTUvideo.currentTime;
 
-	if (startScrollBar === 0) {
-		scrubBar.style.left = startScrollBar;
+	var fractionPlayed = SOTUvideo.currentTime/SOTUvideo.duration;
+	scrubBar.style.left = fractionPlayed*hashtagPlot.offsetWidth;
 
-	}
-	else if (startScrollBar > 0 && startScrollBar < 3) {
-		scrubBar.style.left = startScrollBar % 3;
-	}
-	else if (startScrollBar > 3 && startScrollBar < 3918){
-		scrubBar.style.left = startScrollBar / 3;
-	}
+	// if (startScrollBar === 0) {
+	// 	scrubBar.style.left = startScrollBar;
+
+	// }
+	// else if (startScrollBar > 0 && startScrollBar < 3) {
+	// 	scrubBar.style.left = startScrollBar % 3;
+	// }
+	// else if (startScrollBar > 3 && startScrollBar < 3918){
+	// 	scrubBar.style.left = startScrollBar / 3;
+	// }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -146,7 +150,7 @@ window.onload = function () {
 	statePaths = nation.querySelectorAll('.state');
 	
 	// Go through and get all the state abbreviations used
-	stateAbbreviations = [];
+	//stateAbbreviations = [];
 	for (var i = 0; i < statePaths.length; i++ ) {
 		if (statePaths[i].id.length == 2) {
 			stateAbbreviations.push(statePaths[i].id);
