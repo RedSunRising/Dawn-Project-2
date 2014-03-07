@@ -61,7 +61,6 @@ function scrubBarMouseover(e){
 function updateScrubBar(e) {
 	// A function to make the scrubBar follow the mouse
 
-	//scrubBar.style.backgroundColor = 'red';
 	scrubBar.style.visibility = 'visible';
 	scrubBar.style.left = e.clientX - position(hashtagPlot).x; // e.clientX is the mouse position
 
@@ -92,6 +91,9 @@ function updateScrollBar(e) {
 
 	// Gets current time of video
 	var startScrollBar = SOTUvideo.currentTime;
+
+	// Shows scroll bar on play
+	showScrollBar(e);
 
 	var fractionPlayed = SOTUvideo.currentTime/SOTUvideo.duration;
 	scrubBar.style.left = fractionPlayed*hashtagPlot.offsetWidth;
@@ -129,6 +131,15 @@ function nearestStamp(fractionScrubbed) {
 		}
 	}
 	return timestamps[timestamps.length - 1];
+}
+
+/////////////////////////////////////////////////////////////////////////////////
+// Links the scrolling of the video and scrub bar to scrolling of the transcript
+
+transcript.addEventListener('mousewheel', updateScrollAndVideo, false);
+// funtion to update the update the scroll bar and video
+function updateScrollAndVideo(e){
+	SOTUvideo.currentTime += e.deltaY;
 }
 
 
