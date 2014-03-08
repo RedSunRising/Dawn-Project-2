@@ -139,7 +139,15 @@ function nearestStamp(fractionScrubbed) {
 transcript.addEventListener('mousewheel', updateScrollAndVideo, false);
 // funtion to update the update the scroll bar and video
 function updateScrollAndVideo(e){
-	SOTUvideo.currentTime += e.deltaY;
+	//SOTUvideo.currentTime += e.deltaY;
+
+	// gets the fraction of the script scrolled
+	var fractionScriptScrolled = transcript.scrollTop / transcript.scrollHeight;
+	console.log(fractionScriptScrolled);
+	// sets the video to the fraction played as dictated by the amount scrolled in the script
+	SOTUvideo.currentTime = fractionScriptScrolled * SOTUvideo.duration;
+	// sets scrub bar position as dictated by the amolunt of script scrolled
+	scrubBar.style.left = fractionScriptScrolled * hashtagPlot.offsetWidth;
 }
 
 
