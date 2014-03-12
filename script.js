@@ -87,11 +87,12 @@ function updateScrollBar(e) {
 	var startScrollBar = SOTUvideo.currentTime;
 
 	// Shows scroll bar on play
-	showScrollBar(e);
+	scrubBar.style.visibility = 'visible';
 
 	var fractionPlayed = SOTUvideo.currentTime/SOTUvideo.duration;
 	scrubBar.style.left = fractionPlayed*hashtagPlot.offsetWidth;
 
+	// *garbage code where I tried to figuire out the scoll bar*
 	// if (startScrollBar === 0) {
 	// 	scrubBar.style.left = startScrollBar;
 
@@ -138,12 +139,29 @@ function updateScrollAndVideo(e){
 	// gets the fraction of the script scrolled
 	var fractionScriptScrolled = transcript.scrollTop / transcript.scrollHeight;
 	console.log(fractionScriptScrolled);
+
 	// sets the video to the fraction played as dictated by the amount scrolled in the script
 	SOTUvideo.currentTime = fractionScriptScrolled * SOTUvideo.duration;
+
 	// sets scrub bar position as dictated by the amolunt of script scrolled
 	scrubBar.style.left = fractionScriptScrolled * hashtagPlot.offsetWidth;
 }
 
+transcript.addEventListener('mouseover', transcriptMouseover, false);
+//Pauses the video on mouse over on transcript
+function transcriptMouseover(e){
+	scrubBar.style.backgroundColor = 'red';
+	SOTUvideo.pause();
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// adding scrub bar color change on video click
+
+SOTUvideo.addEventListener('click', blueScrollBar, false);
+// function to make the scroll bar turn blue when the clicked to play
+function blueScrollBar(e){
+	scrubBar.style.backgroundColor = 'blue';
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 // Adding the nav functionality for the video
