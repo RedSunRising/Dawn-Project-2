@@ -37,7 +37,7 @@ var hashtagColors = {
 // Run hashtagMousemove every time the mouse moves above the hashtagPlot
 hashtagPlot.addEventListener('mousemove', hashtagMousemove, false);
 function hashtagMousemove(e) {
-	scrubBar.style.backgroundColor = 'red'
+	scrubBar.style.backgroundColor = 'red';
 	updateScrubBar(e);
 	updateVideo(e);
 	updateTranscript(e);
@@ -47,7 +47,7 @@ function hashtagMousemove(e) {
 hashtagPlot.addEventListener('mouseout', moveFromScrub, false);
 // shows the scroll bar and plays the video on mouse out
 function moveFromScrub(e){
-	showScrollBar(e);
+	scrubBar.style.backgroundColor = 'blue';
 	playVideo(e);
 }
 
@@ -70,12 +70,6 @@ function updateScrubBar(e) {
 
 function updateVideo(e) {
 	SOTUvideo.currentTime = SOTUvideo.duration * scrubBar.fractionScrubbed;
-}
-
-function showScrollBar(e){
-		//shows scroll bar
-	scrubBar.style.backgroundColor = 'blue';
-	scrubBar.style.visibility = 'visible';
 }
 
 function playVideo(e) {
