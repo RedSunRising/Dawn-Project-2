@@ -143,7 +143,7 @@ function updateScrollAndVideo(e){
 	// sets the video to the fraction played as dictated by the amount scrolled in the script
 	SOTUvideo.currentTime = fractionScriptScrolled * SOTUvideo.duration;
 
-	// sets scrub bar position as dictated by the amolunt of script scrolled
+	// sets scrub bar position as dictated by the amount of script scrolled
 	scrubBar.style.left = fractionScriptScrolled * hashtagPlot.offsetWidth;
 }
 
@@ -157,11 +157,60 @@ function transcriptMouseover(e){
 ////////////////////////////////////////////////////////////////////////////////
 // adding scrub bar color change on video click
 
-SOTUvideo.addEventListener('click', blueScrollBar, false);
-// function to make the scroll bar turn blue when the clicked to play
+
+
+SOTUvideo.addEventListener('play', blueScrollBar, false);
+// function to make the scroll bar turn blue when the clicked
 function blueScrollBar(e){
-	scrubBar.style.backgroundColor = 'blue';
+	
+	// gets current color
+	//var currentColor = scrubBar.style.backgroundColor;
+	//console.log(currentColor);
+
+	// checks current color and video state
+	/*if (SOTUvideo.paused === true && currentColor === 'blue') {
+		scrubBar.style.backgroundColor = 'red';
+	}*/
+	//detects if the video is paused or not and changes the color accordingly
+		scrubBar.style.backgroundColor = 'blue';
+		console.log(scrubBar.style.backgroundColor);
 }
+
+SOTUvideo.addEventListener('pause', redScrollBar, false);
+// function to make the scroll bar turn blue when the clicked
+function redScrollBar(e){
+	
+	// gets current color
+	//var currentColor = scrubBar.style.backgroundColor;
+	//console.log(currentColor);
+
+	// checks current color and video state
+	/*if (SOTUvideo.paused === true && currentColor === 'blue') {
+		scrubBar.style.backgroundColor = 'red';
+	}*/
+	//detects if the video is paused or not and changes the color accordingly
+		scrubBar.style.backgroundColor = 'red';
+		console.log(scrubBar.style.backgroundColor);
+}
+/*SOTUvideo.addEventListener('onmouseup', onMouseDownRedScrollBar, false);
+
+function onMouseDownRedScrollBar(e){
+	//detects if the video is paused or not and changes the color accordingly
+	if (SOTUvideo.paused === true) {
+		scrubBar.style.backgroundColor = 'green';
+	}
+	else {
+		scrubBar.style.backgroundColor = 'orange';
+	}
+
+	scrubBar.style.backgroundColor = 'green';
+
+}*/
+
+////////////////////////////////////////////////////////////////////////////////
+// Adds the scroll of the transcript when the video plays
+
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // Adding the nav functionality for the video
