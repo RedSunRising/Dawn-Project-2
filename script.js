@@ -2,6 +2,7 @@ var hashtagPlot = document.getElementById('hashtag-plot');
 var scrubBar = document.getElementById('scrub-bar');
 var SOTUvideo = document.getElementById('sotu-video');
 var videoOffset = 306;
+var fractionPlayed;
 
 // Pull out all the transcript timestamps for use throughout
 var transcript = document.getElementById('sotu-transcript');
@@ -65,7 +66,6 @@ function updateScrubBar(e) {
 	scrubBar.style.left = e.clientX - position(hashtagPlot).x; // e.clientX is the mouse position
 
 	scrubBar.fractionScrubbed = parseInt(scrubBar.style.left, 10)/hashtagPlot.offsetWidth;
-	console.log(scrubBar.fractionScrubbed);
 }
 
 function updateVideo(e) {
@@ -76,8 +76,6 @@ function playVideo(e) {
 	// function that plays the video
 	SOTUvideo.play();
 }
-///////////////////////////////////////////////////////////////////////////////
-// Scroll bar moving with video
 
 // Set up the video so that the scroll bar is moved when the video time is updated
 document.getElementById('sotu-video').addEventListener("timeupdate", updateScrollBar);
@@ -89,20 +87,8 @@ function updateScrollBar(e) {
 	// Shows scroll bar on play
 	scrubBar.style.visibility = 'visible';
 
-	var fractionPlayed = SOTUvideo.currentTime/SOTUvideo.duration;
+	fractionPlayed = SOTUvideo.currentTime/SOTUvideo.duration;
 	scrubBar.style.left = fractionPlayed*hashtagPlot.offsetWidth;
-
-	// *garbage code where I tried to figuire out the scoll bar*
-	// if (startScrollBar === 0) {
-	// 	scrubBar.style.left = startScrollBar;
-
-	// }
-	// else if (startScrollBar > 0 && startScrollBar < 3) {
-	// 	scrubBar.style.left = startScrollBar % 3;
-	// }
-	// else if (startScrollBar > 3 && startScrollBar < 3918){
-	// 	scrubBar.style.left = startScrollBar / 3;
-	// }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -157,20 +143,10 @@ function transcriptMouseover(e){
 ////////////////////////////////////////////////////////////////////////////////
 // adding scrub bar color change on video click
 
-
-
 SOTUvideo.addEventListener('play', blueScrollBar, false);
 // function to make the scroll bar turn blue when the clicked
 function blueScrollBar(e){
-	
-	// gets current color
-	//var currentColor = scrubBar.style.backgroundColor;
-	//console.log(currentColor);
 
-	// checks current color and video state
-	/*if (SOTUvideo.paused === true && currentColor === 'blue') {
-		scrubBar.style.backgroundColor = 'red';
-	}*/
 	//detects if the video is paused or not and changes the color accordingly
 		scrubBar.style.backgroundColor = 'blue';
 		console.log(scrubBar.style.backgroundColor);
@@ -180,36 +156,24 @@ SOTUvideo.addEventListener('pause', redScrollBar, false);
 // function to make the scroll bar turn blue when the clicked
 function redScrollBar(e){
 	
-	// gets current color
-	//var currentColor = scrubBar.style.backgroundColor;
-	//console.log(currentColor);
-
-	// checks current color and video state
-	/*if (SOTUvideo.paused === true && currentColor === 'blue') {
-		scrubBar.style.backgroundColor = 'red';
-	}*/
-	//detects if the video is paused or not and changes the color accordingly
-		scrubBar.style.backgroundColor = 'red';
-		console.log(scrubBar.style.backgroundColor);
+	scrubBar.style.backgroundColor = 'red';
+	console.log(scrubBar.style.backgroundColor);
 }
-/*SOTUvideo.addEventListener('onmouseup', onMouseDownRedScrollBar, false);
-
-function onMouseDownRedScrollBar(e){
-	//detects if the video is paused or not and changes the color accordingly
-	if (SOTUvideo.paused === true) {
-		scrubBar.style.backgroundColor = 'green';
-	}
-	else {
-		scrubBar.style.backgroundColor = 'orange';
-	}
-
-	scrubBar.style.backgroundColor = 'green';
-
-}*/
 
 ////////////////////////////////////////////////////////////////////////////////
 // Adds the scroll of the transcript when the video plays
+SOTUvideo.addEventListener('timeupdate', playedTranscript, false);
 
+function playedTranscript(e) {
+	fractionPlayed = SOTUvideo.currentTime/SOTUvideo.duration;
+	playedTimestamp(nearestStamp(fractionPlayed));
+	console.log();
+}
+
+function playedTimestamp(timestamp) {
+	var target = transcript.querySelector('#transcript-time-' + timestamp);
+	document.getElementById('sotu-transcript').scrollTop = target.offsetTop;
+}
 
 
 ////////////////////////////////////////////////////////////////////////////////
