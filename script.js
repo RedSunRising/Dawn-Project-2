@@ -120,15 +120,11 @@ function nearestStamp(fractionScrubbed) {
 transcript.addEventListener('mousewheel', updateScrollAndVideo, false);
 // funtion to update the update the scroll bar and video
 function updateScrollAndVideo(e){
-	//SOTUvideo.currentTime += e.deltaY;
-
 	// gets the fraction of the script scrolled
 	var fractionScriptScrolled = transcript.scrollTop / transcript.scrollHeight;
 	console.log(fractionScriptScrolled);
-
 	// sets the video to the fraction played as dictated by the amount scrolled in the script
 	SOTUvideo.currentTime = fractionScriptScrolled * SOTUvideo.duration;
-
 	// sets scrub bar position as dictated by the amount of script scrolled
 	scrubBar.style.left = fractionScriptScrolled * hashtagPlot.offsetWidth;
 }
@@ -146,18 +142,13 @@ function transcriptMouseover(e){
 SOTUvideo.addEventListener('play', blueScrollBar, false);
 // function to make the scroll bar turn blue when the clicked
 function blueScrollBar(e){
-
-	//detects if the video is paused or not and changes the color accordingly
 		scrubBar.style.backgroundColor = 'blue';
-		console.log(scrubBar.style.backgroundColor);
 }
 
 SOTUvideo.addEventListener('pause', redScrollBar, false);
 // function to make the scroll bar turn blue when the clicked
 function redScrollBar(e){
-	
 	scrubBar.style.backgroundColor = 'red';
-	console.log(scrubBar.style.backgroundColor);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -167,13 +158,23 @@ SOTUvideo.addEventListener('timeupdate', playedTranscript, false);
 function playedTranscript(e) {
 	fractionPlayed = SOTUvideo.currentTime/SOTUvideo.duration;
 	playedTimestamp(nearestStamp(fractionPlayed));
-	console.log();
 }
 
 function playedTimestamp(timestamp) {
 	var target = transcript.querySelector('#transcript-time-' + timestamp);
 	document.getElementById('sotu-transcript').scrollTop = target.offsetTop;
+	console.log(target);
 }
+
+SOTUvideo.addEventListener('timeupdate', highlightText, false);
+
+function  highlightText(e){
+	fractionPlayed = SOTUvideo.currentTime/SOTUvideo.duration;
+	currentTimestamp = nearestStamp(fractionPlayed);
+	var test = transcript.querySelector('#transcript-time-' + currentTimestamp);
+	test.classList.add('current-text');
+}
+
 
 
 ////////////////////////////////////////////////////////////////////////////////

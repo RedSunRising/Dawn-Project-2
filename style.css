@@ -107,6 +107,13 @@ li a {
 	padding-right: 1em;
 }
 
+.current-text{
+	background-color: FFFF99;
+	
+	-webkit-transition: 250ms linear;
+	transition: 250ms linear;
+}
+
 
 /* Right Panel */
 
