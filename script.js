@@ -163,7 +163,6 @@ function playedTranscript(e) {
 function playedTimestamp(timestamp) {
 	var target = transcript.querySelector('#transcript-time-' + timestamp);
 	document.getElementById('sotu-transcript').scrollTop = target.offsetTop;
-	console.log(target);
 }
 
 SOTUvideo.addEventListener('timeupdate', highlightText, false);
@@ -171,8 +170,17 @@ SOTUvideo.addEventListener('timeupdate', highlightText, false);
 function  highlightText(e){
 	fractionPlayed = SOTUvideo.currentTime/SOTUvideo.duration;
 	currentTimestamp = nearestStamp(fractionPlayed);
-	var test = transcript.querySelector('#transcript-time-' + currentTimestamp);
-	test.classList.add('current-text');
+	var currentText = transcript.querySelector('#transcript-time-' + currentTimestamp);
+	
+	for(i = 0; i < timestamps.length; i++){
+		if (currentTimestamp == timestamps[i]){
+			currentText.classList.add('current-text');
+			console.log(currentTimestamp);
+		}
+		else {
+			transcript.querySelector('#transcript-time-' + timestamps[i]).classList.remove('current-text');
+		}
+	}
 }
 
 
